@@ -1,0 +1,9 @@
+.raceTab_items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+    gap: 100px;
+}

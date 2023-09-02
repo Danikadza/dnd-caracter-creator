@@ -1,0 +1,20 @@
+.tabs_tablist{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.tabs_tabItem{
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.tabs_tabContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

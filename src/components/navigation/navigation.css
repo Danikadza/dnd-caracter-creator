@@ -1,0 +1,29 @@
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.navigation_img {
+    position: relative;
+    max-height: 40px;
+}
+
+.navigation_items {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.navigation_item {
+    margin: 0px;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-decoration: none;
+    color: white;
+}

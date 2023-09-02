@@ -1,0 +1,32 @@
+.statsButton{
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.statsButton__name{
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statsButton__images{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.statsButton__img{
+    height: 5%;
+    width: 50px;
+}
+
+.statsButton__counter{
+
+}

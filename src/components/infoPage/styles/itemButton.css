@@ -1,13 +1,8 @@
-.app{
-    background-color: rgb(54, 54, 54);
-    color: white;
-    min-height: 100%wh;
-}
-
-.app_links{
+.itemButton{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
