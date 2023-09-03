@@ -35,19 +35,17 @@ interface props {
 
 export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
 
-    const [id, setId] = useState(1)
     const [race, setRace] = useState('dwarf')
     const [subRace, setSubRace] = useState('')
 
 
     function handleSelectRace(event: any) {
-        setRace(event.target.race)
-        selectRace(event.target.race)
-        setId(event.target.id)
+        setRace(event.target.value)
+        selectRace(race)
     }
     function handleSelectSubRace(event: any) {
-        setSubRace(event.target.raceItem)
-        selectSubRace(event.target.raceItem)
+        setSubRace(event.target.value)
+        selectSubRace(event.target.value)
     }
 
     const subRaces = () => {
@@ -86,9 +84,7 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
                 </select>
                 <div>{subRace}</div>
             </div>) : (
-
                 <p>Подрас нет</p>
-
             )
             }
         </div>

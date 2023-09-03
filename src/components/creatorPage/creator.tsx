@@ -68,6 +68,7 @@ export default function Creator() {
         <NameInput />
         <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data}/>
         <StatsCalculator data={data} race={race}/>
+        {race}{subRace}
         <ClassSelect />
       </div>
     </>
