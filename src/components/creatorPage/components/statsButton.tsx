@@ -13,10 +13,11 @@ interface props {
     name: keyof Skills;
     counter: number;
     raceStat: number,
+    subRaceStat: number,
     onChange: (name: keyof Skills, updatedValue: number) => void;
 }
 
-export default function StatsButton({name, counter,raceStat, onChange}:props) {
+export default function StatsButton({name, counter,raceStat,subRaceStat, onChange}:props) {
     const handleInc = () => {
         if(counter<15){
         onChange(name, counter + 1) 
@@ -29,7 +30,7 @@ export default function StatsButton({name, counter,raceStat, onChange}:props) {
         }
     }
 
-    var mod = Math.ceil(((counter + raceStat)- 10 )/ 2)
+    var mod = Math.ceil(((counter + raceStat + subRaceStat)- 10 )/ 2)
 
     return (
         <div className='statsButton'>
@@ -38,8 +39,8 @@ export default function StatsButton({name, counter,raceStat, onChange}:props) {
                 <img className='statsButton__img' src='../images/minus.svg' alt='minus' onClick={handleDec}/>
                 <img className='statsButton__img' src='../images/plus.svg' alt='plus' onClick={handleInc}/>
             </div>
-            <div className='statsButton__counter'>{counter + raceStat}</div>
-            Модификатор
+            <div className='statsButton__counter'>{counter + raceStat + subRaceStat}</div>
+            Модификатор {subRaceStat}
             <div className='statsButton__mod'>{mod}</div>
         </div>
     )

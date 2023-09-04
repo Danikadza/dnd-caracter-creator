@@ -41,7 +41,7 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
 
     function handleSelectRace(event: any) {
         setRace(event.target.value)
-        selectRace(race)
+        selectRace(event.target.value)
     }
     function handleSelectSubRace(event: any) {
         setSubRace(event.target.value)
@@ -73,7 +73,6 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
                         <option>{race.name}</option>
                     )}
                 </select>
-                <div>{race}</div>
             </div>
             Выберите подрасу
             {subRaces() ? (<div>
@@ -82,11 +81,11 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
                         <option>{raceItem.name}</option>
                     )}
                 </select>
-                <div>{subRace}</div>
             </div>) : (
                 <p>Подрас нет</p>
             )
             }
+            {race}{subRace}
         </div>
     )
 }
