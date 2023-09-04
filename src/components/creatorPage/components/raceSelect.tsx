@@ -35,7 +35,7 @@ interface props {
 
 export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
 
-    const [race, setRace] = useState('dwarf')
+    const [race, setRace] = useState('')
     const [subRace, setSubRace] = useState('')
 
 
@@ -53,7 +53,7 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
             return null
         }
         const raceData = data.find(item => item.name === race)
-        if (raceData === undefined) {
+        if (!raceData || !raceData.subRace) {
             return null
         }
         return Object.values(raceData.subRace)
@@ -69,23 +69,24 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
             Выберите расу
             <div>
                 <select onChange={handleSelectRace}>
+                    <option></option>
                     {data.map((race) =>
                         <option>{race.name}</option>
                     )}
                 </select>
             </div>
-            Выберите подрасу
-            {subRaces() ? (<div>
+            {subRaces() ? (
+            <div>
                 <select onChange={handleSelectSubRace}>
+                    <option></option>
                     {subRaces()?.map((raceItem) =>
                         <option>{raceItem.name}</option>
                     )}
                 </select>
             </div>) : (
-                <p>Подрас нет</p>
+                <div/>
             )
             }
-            {race}{subRace}
         </div>
     )
 }

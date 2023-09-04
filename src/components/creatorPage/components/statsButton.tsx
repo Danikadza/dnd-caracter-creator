@@ -40,7 +40,7 @@ export default function StatsButton({name, counter,raceStat,subRaceStat, onChang
                 <img className='statsButton__img' src='../images/plus.svg' alt='plus' onClick={handleInc}/>
             </div>
             <div className='statsButton__counter'>{counter + raceStat + subRaceStat}</div>
-            Модификатор {subRaceStat}
+            Модификатор 
             <div className='statsButton__mod'>{mod}</div>
         </div>
     )

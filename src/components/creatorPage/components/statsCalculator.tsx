@@ -90,7 +90,7 @@ const subRaces = useMemo(
         return null
     }
     const subRaceData = data.find(item => item.name === race)
-    if (subRaceData === undefined) {
+    if (!subRaceData || !subRaceData.subRace) {
         return null
     }
     const subRaceData1 = Object.values(subRaceData.subRace).find(item => item.name === subRace)
@@ -113,14 +113,6 @@ const subRaces = useMemo(
         <StatsButton raceStat={data ? data[raceId].raceSkills.intelligence: 0} subRaceStat={subRaces ? subRaces.intelligence : 0} counter={skills.intelligence} name="intelligence" onChange={handleSkillChange}/>
         <StatsButton raceStat={data ? data[raceId].raceSkills.wisdom: 0} subRaceStat={subRaces ? subRaces.wisdom : 0} counter={skills.wisdom} name="wisdom" onChange={handleSkillChange}/>
         <StatsButton raceStat={data ? data[raceId].raceSkills.charisma: 0} subRaceStat={subRaces ? subRaces.charisma : 0} counter={skills.charisma} name="charisma" onChange={handleSkillChange}/>
-        <div>
-        {data ? 
-            <li>{data[raceId].raceSkills.dexterity}</li>
-          : (
-            <p>Loading data...</p>
-          )}
-        </div>
-       <div>{subRaces?.strength}</div>
       </div>
   )
 }
