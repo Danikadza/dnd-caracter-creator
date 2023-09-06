@@ -4,6 +4,8 @@ import RaceSelect from './components/raceSelect'
 import ClassSelect from './components/classSelect'
 import NameInput from './components/nameInput'
 import { useState, useEffect } from 'react'
+import AdvancedSkills from './components/advancedSkills'
+import ClassAbility from './components/classAbility'
 
 interface ISubRace {
   name:string
@@ -32,12 +34,22 @@ interface Data {
   subRace: Record<string, ISubRace>
 }
 
+interface IClassData {
+  id: number;
+  name: string;
+  hitPoints: number;
+  classSkills: string[],
+  classAbility: string[],
+}
+
 
 export default function Creator() {
 
   const [data, setData] = useState<Data[] | null>(null);
+  const [classData, setClassData] = useState<IClassData[] | null>(null);
   const [race, setRace] = useState('');
   const [subRace, setSubRace] = useState('');
+  const [className, setClass] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +65,20 @@ export default function Creator() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:2000/info/class');
+        const jsonData = await response.json();
+        setClassData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const selectedRace = (name: string) => {
     setRace(name)
   }
@@ -60,6 +86,9 @@ export default function Creator() {
     setSubRace(name)
   }
 
+  const selectedClass = (name: string) =>{
+    setClass(name)
+  }
 
   return (
     <>
@@ -68,7 +97,10 @@ export default function Creator() {
         <NameInput />
         <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data}/>
         <StatsCalculator data={data} race={race} subRace={subRace}/>
-        <ClassSelect />
+        <ClassSelect classData={classData} selectClass={selectedClass}/>
+        <AdvancedSkills classData={classData} className={className}/>
+        <ClassAbility classData={classData} className={className}/>
+        {className}
       </div>
     </>
   )
