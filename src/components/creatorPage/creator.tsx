@@ -4,8 +4,9 @@ import RaceSelect from './components/raceSelect'
 import ClassSelect from './components/classSelect'
 import NameInput from './components/nameInput'
 import { useState, useEffect } from 'react'
-import AdvancedSkills from './components/advancedSkills'
+import AdvancedSkillsSelect from './components/advancedSkillsSelect'
 import ClassAbility from './components/classAbility'
+import AdvancedSkills from './components/advansedSkills'
 
 interface ISubRace {
   name:string
@@ -50,6 +51,7 @@ export default function Creator() {
   const [race, setRace] = useState('');
   const [subRace, setSubRace] = useState('');
   const [className, setClass] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,6 +92,10 @@ export default function Creator() {
     setClass(name)
   }
 
+  const selectedAdvansedSkills = (name: string[]) =>{
+    setSelectedSkills(name)
+  }
+
   return (
     <>
       <Navigation />
@@ -98,9 +104,11 @@ export default function Creator() {
         <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data}/>
         <StatsCalculator data={data} race={race} subRace={subRace}/>
         <ClassSelect classData={classData} selectClass={selectedClass}/>
-        <AdvancedSkills classData={classData} className={className}/>
+        <AdvancedSkillsSelect classData={classData} className={className} selectedAdvansedSkills={selectedAdvansedSkills} />
         <ClassAbility classData={classData} className={className}/>
-        {className}
+        <AdvancedSkills selectedAdvancedSkills={selectedSkills}/>
+
+        <p>Selected skills: {selectedSkills.join(', ')}</p>
       </div>
     </>
   )
