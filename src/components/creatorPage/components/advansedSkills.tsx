@@ -85,7 +85,7 @@ export default function AdvancedSkills({selectedAdvancedSkills}:props) {
         useEffect(() => {
             const updatedSkills = advancedSkills.map((skill) => {
               if (selectedAdvancedSkills.includes(skill.name)) {
-                return { ...skill, advancedSkillCount: skill.advancedSkillCount + 2 };
+                return { ...skill, advancedSkillCount: 2 };
               } else {
                 return { ...skill, advancedSkillCount: 0 };
               }
@@ -98,7 +98,7 @@ export default function AdvancedSkills({selectedAdvancedSkills}:props) {
           return (
             <div>
               {advancedSkills.map((advancedSkill) => (
-                <div key={advancedSkill.name}>
+                <div>
                   <label>{advancedSkill.name}</label>
                   <label>{advancedSkill.advancedSkillCount}</label>
                 </div>
