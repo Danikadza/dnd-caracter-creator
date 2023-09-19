@@ -1,93 +1,134 @@
 import { useState, useEffect } from 'react';
 
-interface props {
-    selectedAdvancedSkills: string[]
-}
-
 interface AdvancedSkill {
     name: string;
     advancedSkillCount: number;
+    mainSkill: string
   }
 
-export default function AdvancedSkills({selectedAdvancedSkills}:props) {
+  interface IModificators {
+    strength: number;
+    dexterity: number;
+    constitution: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+  }
+
+  interface props {
+    selectedAdvancedSkills: string[],
+    modificators: IModificators
+}
+
+export default function AdvancedSkills({selectedAdvancedSkills, modificators}:props) {
     const [advancedSkills, setAdvancedSkills] = useState<AdvancedSkill[]>(
         [
             {
                 name: 'Атлетика',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'strength'
             },
             {
                 name: 'Акробатика',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'dexterity'
             },
             {
                 name: 'Анализ',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'intelligence'
             },
             {
                 name: 'Внимательность',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'wisdom'
             },
             {
                 name: 'Выживание',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'wisdom'
             },
             {
                 name: 'Выступление',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'charisma'
             },
             {
                 name: 'Запугивание',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'charisma'
             },
             {
                 name: 'История',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'intelligence'
             },
             {
                 name: 'Магия',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'intelligence'
             },
             {
                 name: 'Медицина',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'wisdom'
             },
             {
                 name: 'Ловкость рук',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'dexterity'
             },
             {
                 name: 'Природа',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'intelligence'
             },
             {
                 name: 'Проницательность',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'wisdom'
             },
             {
                 name: 'Религия',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'intelligence'
             },
             {
                 name: 'Скрытность',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'dexterity'
             },
             {
                 name: 'Убеждение',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'charisma'
             },
             {
                 name: 'Уход за животными',
-                advancedSkillCount: 0
+                advancedSkillCount: -1,
+                mainSkill: 'wisdom'
             },
         ]);
 
         useEffect(() => {
             const updatedSkills = advancedSkills.map((skill) => {
+                const usedMod = Object.entries(modificators).find(([modificatorKey]) => modificatorKey == skill.mainSkill)
+                if (usedMod) {
+                  return { ...skill, advancedSkillCount: usedMod[1]};
+                } else {
+                  return skill
+                }
+                
+              });
+              setAdvancedSkills(updatedSkills);
+          }, [modificators]);
+
+        useEffect(() => {
+            const updatedSkills = advancedSkills.map((skill) => {
               if (selectedAdvancedSkills.includes(skill.name)) {
-                return { ...skill, advancedSkillCount: 2 };
+                return { ...skill, advancedSkillCount: skill.advancedSkillCount + 2 };
               } else {
-                return { ...skill, advancedSkillCount: 0 };
+                return { ...skill, advancedSkillCount: skill.advancedSkillCount - 2 };
               }
             });
             setAdvancedSkills(updatedSkills);

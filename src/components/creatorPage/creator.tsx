@@ -9,7 +9,7 @@ import ClassAbility from './components/classAbility'
 import AdvancedSkills from './components/advansedSkills'
 
 interface ISubRace {
-  name:string
+  name: string
   raceSkills: {
     strength: number;
     dexterity: number;
@@ -18,6 +18,15 @@ interface ISubRace {
     wisdom: number;
     charisma: number;
   }
+}
+
+interface IModificators {
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
 }
 
 interface Data {
@@ -39,8 +48,18 @@ interface IClassData {
   id: number;
   name: string;
   hitPoints: number;
+  classSkillsCount: number,
   classSkills: string[],
   classAbility: string[],
+}
+
+interface Skills {
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
 }
 
 
@@ -52,6 +71,17 @@ export default function Creator() {
   const [subRace, setSubRace] = useState('');
   const [className, setClass] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+
+  const [modificators, setModificator] = useState<IModificators>({
+    strength: 0,
+    dexterity: 0,
+    constitution: 0,
+    intelligence: 0,
+    wisdom: 0,
+    charisma: 0,
+  });
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,16 +114,20 @@ export default function Creator() {
   const selectedRace = (name: string) => {
     setRace(name)
   }
-  const selectedSubRace = (name: string) =>{
+  const selectedSubRace = (name: string) => {
     setSubRace(name)
   }
 
-  const selectedClass = (name: string) =>{
+  const selectedClass = (name: string) => {
     setClass(name)
   }
 
-  const selectedAdvansedSkills = (name: string[]) =>{
+  const selectedAdvansedSkills = (name: string[]) => {
     setSelectedSkills(name)
+  }
+
+  const modificatorHandler = (modificators: IModificators) => {
+    setModificator(modificators)
   }
 
   return (
@@ -101,15 +135,14 @@ export default function Creator() {
       <Navigation />
       <div className='creator'>
         <NameInput />
-        <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data}/>
-        <StatsCalculator data={data} race={race} subRace={subRace}/>
-        <ClassSelect classData={classData} selectClass={selectedClass}/>
+        <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data} />
+        <StatsCalculator data={data} race={race} subRace={subRace} modificator={modificatorHandler} />
+        <ClassSelect classData={classData} selectClass={selectedClass} />
         <AdvancedSkillsSelect classData={classData} className={className} selectedAdvansedSkills={selectedAdvansedSkills} />
-        <ClassAbility classData={classData} className={className}/>
-        <AdvancedSkills selectedAdvancedSkills={selectedSkills}/>
-
-        <p>Selected skills: {selectedSkills.join(', ')}</p>
+        <ClassAbility classData={classData} className={className} />
+        <AdvancedSkills selectedAdvancedSkills={selectedSkills} modificators={modificators} />
       </div>
+
     </>
   )
 }

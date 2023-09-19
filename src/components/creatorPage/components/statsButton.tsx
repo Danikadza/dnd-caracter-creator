@@ -1,4 +1,6 @@
 import '../style/statsButton.css'
+import { useState, useEffect } from 'react';
+
 
 interface Skills {
     strength: number;
@@ -15,9 +17,10 @@ interface props {
     raceStat: number,
     subRaceStat: number,
     onChange: (name: keyof Skills, updatedValue: number) => void;
+    modificator: (name: keyof Skills, value: number) => void
 }
 
-export default function StatsButton({name, counter,raceStat,subRaceStat, onChange}:props) {
+export default function StatsButton({name, counter,raceStat,subRaceStat, onChange, modificator}:props) {
     const handleInc = () => {
         if(counter<15){
         onChange(name, counter + 1) 
@@ -31,6 +34,10 @@ export default function StatsButton({name, counter,raceStat,subRaceStat, onChang
     }
 
     var mod = Math.ceil(((counter + raceStat + subRaceStat)- 10 )/ 2)
+
+    useEffect(() => {
+        modificator(name, mod)
+      }, [mod]);
 
     return (
         <div className='statsButton'>

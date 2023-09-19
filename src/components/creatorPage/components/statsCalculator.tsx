@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import StatsButton from "./statsButton"
 import { useMemo } from 'react';
 
@@ -38,13 +38,23 @@ interface Skills {
   charisma: number;
 }
 
+interface IModificators {
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
+}
+
 interface props {
   race:string,
   data: Data[] | null,
-  subRace:string
+  subRace:string,
+  modificator: (modificatorsName: IModificators) => void,
 }
 
-export default function StatsCalculator({race, subRace, data}:props) {
+export default function StatsCalculator({race, subRace, data, modificator}:props) {
  
 
   const [skillPoints, setSkillPoints] = useState(27)
@@ -56,6 +66,15 @@ export default function StatsCalculator({race, subRace, data}:props) {
     intelligence: 8,
     wisdom: 8,
     charisma: 8,
+  });
+
+  const [modificators, setModificator] = useState<IModificators>({
+    strength: 0,
+    dexterity: 0,
+    constitution: 0,
+    intelligence: 0,
+    wisdom: 0,
+    charisma: 0,
   });
 
   
@@ -74,6 +93,15 @@ export default function StatsCalculator({race, subRace, data}:props) {
       setSkills({...skills, [skill]: updatedValue})
     }
   }
+
+  const modificatorHandler = (skill: keyof Skills, modificator: number) => {
+    setModificator({...modificators, [skill]:modificator})
+  }
+
+  useEffect(() => {
+    
+    modificator(modificators)
+  }, [modificators]);
 
   var raceId = 0
   if (data != null){
@@ -107,12 +135,12 @@ const subRaces = useMemo(
   return (
       <div>
         <div>Очки навыков: {skillPoints}</div>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.strength : 0} subRaceStat={subRaces ? subRaces.strength : 0} counter={skills.strength} name="strength" onChange={handleSkillChange}/>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.dexterity: 0} subRaceStat={subRaces ? subRaces.dexterity : 0} counter={skills.dexterity} name="dexterity" onChange={handleSkillChange}/>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.constitution: 0} subRaceStat={subRaces ? subRaces.constitution : 0} counter={skills.constitution} name="constitution" onChange={handleSkillChange}/>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.intelligence: 0} subRaceStat={subRaces ? subRaces.intelligence : 0} counter={skills.intelligence} name="intelligence" onChange={handleSkillChange}/>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.wisdom: 0} subRaceStat={subRaces ? subRaces.wisdom : 0} counter={skills.wisdom} name="wisdom" onChange={handleSkillChange}/>
-        <StatsButton raceStat={data ? data[raceId].raceSkills.charisma: 0} subRaceStat={subRaces ? subRaces.charisma : 0} counter={skills.charisma} name="charisma" onChange={handleSkillChange}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.strength : 0} subRaceStat={subRaces ? subRaces.strength : 0} counter={skills.strength} name="strength" onChange={handleSkillChange} modificator={modificatorHandler}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.dexterity: 0} subRaceStat={subRaces ? subRaces.dexterity : 0} counter={skills.dexterity} name="dexterity" onChange={handleSkillChange} modificator={modificatorHandler}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.constitution: 0} subRaceStat={subRaces ? subRaces.constitution : 0} counter={skills.constitution} name="constitution" onChange={handleSkillChange} modificator={modificatorHandler}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.intelligence: 0} subRaceStat={subRaces ? subRaces.intelligence : 0} counter={skills.intelligence} name="intelligence" onChange={handleSkillChange} modificator={modificatorHandler}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.wisdom: 0} subRaceStat={subRaces ? subRaces.wisdom : 0} counter={skills.wisdom} name="wisdom" onChange={handleSkillChange} modificator={modificatorHandler}/>
+        <StatsButton raceStat={data ? data[raceId].raceSkills.charisma: 0} subRaceStat={subRaces ? subRaces.charisma : 0} counter={skills.charisma} name="charisma" onChange={handleSkillChange} modificator={modificatorHandler}/>
       </div>
   )
 }
