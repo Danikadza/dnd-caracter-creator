@@ -1,4 +1,8 @@
 import { useState } from "react";
+import type { RootState } from '../../../store//store'
+import { useSelector, useDispatch } from 'react-redux'
+import { setRace } from '../../../store/creator/raceSlice'
+import { setSubRace } from '../../../store/creator/subRaceSlice'
 
 interface ISubRace {
     name: string
@@ -35,16 +39,16 @@ interface props {
 
 export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
 
-    const [race, setRace] = useState('')
-    const [subRace, setSubRace] = useState('')
-
-
+    const raceName = useSelector((state: RootState) => state.race)
+    const subRaceName = useSelector((state: RootState) => state.subRace)
+    const dispatch = useDispatch()
+    
     function handleSelectRace(event: any) {
-        setRace(event.target.value)
+        dispatch(setRace(event.target.value))
         selectRace(event.target.value)
     }
     function handleSelectSubRace(event: any) {
-        setSubRace(event.target.value)
+        dispatch(setSubRace(event.target.value))
         selectSubRace(event.target.value)
     }
 
@@ -52,7 +56,7 @@ export default function RaceSelect({ data, selectRace, selectSubRace }: props) {
         if (data === null) {
             return null
         }
-        const raceData = data.find(item => item.name === race)
+        const raceData = data.find(item => item.name === raceName.race)
         if (!raceData || !raceData.subRace) {
             return null
         }

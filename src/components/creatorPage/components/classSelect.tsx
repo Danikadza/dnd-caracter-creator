@@ -1,4 +1,7 @@
 import { useState } from "react";
+import type { RootState } from '../../../store//store'
+import { useSelector, useDispatch } from 'react-redux'
+import { setClass } from '../../../store/creator/classSlice'
 
 interface IClassData {
     id: number;
@@ -14,12 +17,14 @@ interface IClassData {
 }
 
 export default function ClassSelect({ classData, selectClass }: props) {
+    
+    const className = useSelector((state: RootState) => state.class)
+    const dispatch = useDispatch()
 
-    const [className, setClass] = useState('')
 
     function handleSelectClass(event: any) {
-        setClass(event.target.value)
         selectClass(event.target.value)
+        dispatch(setClass(event.target.value))
     }
 
     if (classData === null) {

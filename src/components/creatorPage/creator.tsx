@@ -7,6 +7,10 @@ import { useState, useEffect } from 'react'
 import AdvancedSkillsSelect from './components/advancedSkillsSelect'
 import ClassAbility from './components/classAbility'
 import AdvancedSkills from './components/advansedSkills'
+import type { RootState } from '../../store//store'
+import { useSelector, useDispatch } from 'react-redux'
+import { setRaceData } from '../../store/creator/raceDataSlice'
+import { setClassData } from '../../store/creator/classDataSlice'
 
 interface ISubRace {
   name: string
@@ -65,13 +69,17 @@ interface Skills {
 
 export default function Creator() {
 
+  const raceData = useSelector((state: RootState) => state.raceData)
+  const classData = useSelector((state: RootState) => state.classData)
+  const dispatch = useDispatch()
+
+
   const [data, setData] = useState<Data[] | null>(null);
-  const [classData, setClassData] = useState<IClassData[] | null>(null);
+  const [classData1, setClassData1] = useState<IClassData[] | null>(null);
   const [race, setRace] = useState('');
   const [subRace, setSubRace] = useState('');
   const [className, setClass] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-
   const [modificators, setModificator] = useState<IModificators>({
     strength: 0,
     dexterity: 0,
@@ -88,6 +96,7 @@ export default function Creator() {
       try {
         const response = await fetch('http://localhost:2000/info/race');
         const jsonData = await response.json();
+        dispatch(setRaceData(jsonData))
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -102,7 +111,8 @@ export default function Creator() {
       try {
         const response = await fetch('http://localhost:2000/info/class');
         const jsonData = await response.json();
-        setClassData(jsonData);
+        dispatch(setClassData(jsonData))
+        setClassData1(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -137,9 +147,9 @@ export default function Creator() {
         <NameInput />
         <RaceSelect selectSubRace={selectedSubRace} selectRace={selectedRace} data={data} />
         <StatsCalculator data={data} race={race} subRace={subRace} modificator={modificatorHandler} />
-        <ClassSelect classData={classData} selectClass={selectedClass} />
-        <AdvancedSkillsSelect classData={classData} className={className} selectedAdvansedSkills={selectedAdvansedSkills} />
-        <ClassAbility classData={classData} className={className} />
+        <ClassSelect classData={classData1} selectClass={selectedClass} />
+        <AdvancedSkillsSelect classData={classData1} className={className} selectedAdvansedSkills={selectedAdvansedSkills} />
+        <ClassAbility classData={classData1} className={className} />
         <AdvancedSkills selectedAdvancedSkills={selectedSkills} modificators={modificators} />
       </div>
 
