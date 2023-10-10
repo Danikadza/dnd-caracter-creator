@@ -1,20 +1,13 @@
+import type { RootState } from '../../../store//store'
+import { useSelector } from 'react-redux'
+import '../style/classAbility.css'
 
-interface IClassData {
-    id: number;
-    name: string;
-    hitPoints: number;
-    classSkills: string[],
-    classAbility: string[],
-}
+export default function ClassAbility() {
 
-interface props {
-    className: string,
-    classData: IClassData[] | null,
-}
+    const className = useSelector((state: RootState) => state.class).class
+    const classData = useSelector((state: RootState) => state.classData).Data
 
-
-
-export default function ClassAbility({ className, classData }: props) {
+    
 
     const  classAbility = () => {
         if (classData === null) {
@@ -36,11 +29,11 @@ export default function ClassAbility({ className, classData }: props) {
     return (
         <div>
            <div>Классовые умения:</div>
-           <div>
+           <div className='classAbility'>
            {
                 classAbility()?.map((classAbilityItem) =>
                     <>
-                        <label >{classAbilityItem}</label>
+                        <label className='classAbility__item'>{classAbilityItem}</label>
                     </>
                 )
             }

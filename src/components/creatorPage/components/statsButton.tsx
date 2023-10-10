@@ -22,10 +22,9 @@ interface props {
     raceStat: number,
     subRaceStat: number,
     onChange: (name: keyof Skills, updatedValue: number) => void;
-    modificator: (name: keyof Skills, value: number) => void
 }
 
-export default function StatsButton({name ,raceStat,subRaceStat, onChange, modificator}:props) {
+export default function StatsButton({name ,raceStat,subRaceStat, onChange}:props) {
     const count = useSelector((state: RootState) => state.skills)
     const mod = useSelector((state: RootState) => state.modificator)
     const dispatch = useDispatch()
@@ -39,8 +38,8 @@ export default function StatsButton({name ,raceStat,subRaceStat, onChange, modif
 
     useEffect(() => {
         dispatch(setModificator(modificatorItem))
-        modificator(name, m)
-      }, [m]);
+        onChange(name, count[name])
+      }, [m,count[name]]);
 
     return (
         <div className='statsButton'>

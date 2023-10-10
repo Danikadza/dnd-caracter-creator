@@ -29,14 +29,14 @@ export interface IRaceData {
   }
 
 const initialState: {
-    Data: IRaceData|null
+    Data: IRaceData[]|null
 } = {Data: null} 
 
   export const raceDataSlice = createSlice({
     name: 'raceData',
     initialState,
     reducers: {
-      setRaceData: (state, action: PayloadAction<IRaceData>) => {
+      setRaceData: (state, action: PayloadAction<IRaceData[]>) => {
         state.Data = action.payload;
       },
     },

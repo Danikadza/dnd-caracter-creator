@@ -6,6 +6,7 @@ import subRaceReducer from './creator/subRaceSlice'
 import modifacatorReduser from './creator/modificatorSlice'
 import raceDataReduser from './creator/raceDataSlice'
 import classDataReduser from './creator/classDataSlice'
+import advansedSkillsReduser from './creator/advancedSkillsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     modificator: modifacatorReduser,
     raceData: raceDataReduser,
     classData: classDataReduser,
+    advancedSkills:advansedSkillsReduser
   },
   devTools: true,
 })

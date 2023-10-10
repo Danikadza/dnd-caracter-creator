@@ -27,8 +27,6 @@ export default function App() {
     <div className='app'>
       <RouterProvider router={router} />
       <div className='app_links'>
-      <div >Ссылки на используемые ресурсы</div>
-      <div >Контактная информация</div>
       </div>
     </div>
   )

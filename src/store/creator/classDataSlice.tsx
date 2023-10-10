@@ -5,19 +5,21 @@ export interface IClassData {
     id: number;
     name: string;
     hitPoints: number;
+    classSkillsCount: number,
     classSkills: string[],
     classAbility: string[],
   }
 
+
 const initialState: {
-    Data: IClassData|null
+    Data: IClassData[]|null
 } = {Data: null} 
 
   export const classSlice = createSlice({
     name: 'classData',
     initialState,
     reducers: {
-      setClassData: (state, action: PayloadAction<IClassData>) => {
+      setClassData: (state, action: PayloadAction<IClassData[]>) => {
         state.Data = action.payload;
       },
     },

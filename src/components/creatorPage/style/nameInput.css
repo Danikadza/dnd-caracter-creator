@@ -1,0 +1,11 @@
+.nameInput {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nameInput__item{
+    display: flex;
+    gap: 4px;
+}

@@ -1,23 +1,15 @@
 import { useState, useEffect } from 'react'
+import type { RootState } from '../../../store//store'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleChecked } from '../../../store/creator/advancedSkillsSlice'
+import '../style/advancedSkillsSelect.css'
 
-interface IClassData {
-    id: number;
-    name: string;
-    hitPoints: number;
-    classSkillsCount: number,
-    classSkills: string[],
-    classAbility: string[],
-}
+export default function AdvancedSkillsSelect() {
 
-interface props {
-    className: string,
-    classData: IClassData[] | null,
-    selectedAdvansedSkills: (name:string[]) => void
-}
+    const classData = useSelector((state: RootState) => state.classData).Data
+    const className = useSelector((state: RootState) => state.class).class
 
-
-
-export default function AdvancedSkillsSelect({ className, classData, selectedAdvansedSkills }: props) {
+    const dispatch = useDispatch()
     
     const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
@@ -46,6 +38,7 @@ export default function AdvancedSkillsSelect({ className, classData, selectedAdv
     const handleSelectedSkill = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
         const isChecked = event.target.checked;
+        dispatch(toggleChecked(name));
         if (isChecked) {
             setSelectedSkills((prevState) => [...prevState, name]);
           } else {
@@ -54,9 +47,10 @@ export default function AdvancedSkillsSelect({ className, classData, selectedAdv
             );
           }
     }
-    useEffect(() => {
-        selectedAdvansedSkills(selectedSkills)
-      }, [selectedSkills]);
+
+      useEffect(() => {
+        
+      }, [className]);
 
 
     if (classData === null) {
@@ -74,7 +68,7 @@ export default function AdvancedSkillsSelect({ className, classData, selectedAdv
     }
 
     return (
-        <div>
+        <div className='skillsSelect'>
             {
                 advansedClassSkills()?.map((classSkills) =>
                     <>
@@ -83,7 +77,6 @@ export default function AdvancedSkillsSelect({ className, classData, selectedAdv
                     </>
                 )
             }
-            <p>Selected skills: {selectedSkills.join(', ')}</p>
         </div>
     )
 }
