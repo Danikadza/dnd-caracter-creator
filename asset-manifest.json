@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/dnd-caracter-creator/static/css/main.31a0a45c.css",
+    "main.js": "/dnd-caracter-creator/static/js/main.d7bd318f.js",
+    "static/js/787.359a0f2b.chunk.js": "/dnd-caracter-creator/static/js/787.359a0f2b.chunk.js",
+    "index.html": "/dnd-caracter-creator/index.html",
+    "main.31a0a45c.css.map": "/dnd-caracter-creator/static/css/main.31a0a45c.css.map",
+    "main.d7bd318f.js.map": "/dnd-caracter-creator/static/js/main.d7bd318f.js.map",
+    "787.359a0f2b.chunk.js.map": "/dnd-caracter-creator/static/js/787.359a0f2b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31a0a45c.css",
+    "static/js/main.d7bd318f.js"
+  ]
+}
