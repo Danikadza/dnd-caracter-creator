@@ -25,6 +25,7 @@
 .statsButton__img{
     height: 5%;
     width: 50px;
+    cursor: pointer;
 }
 
 .statsButton__counter{
