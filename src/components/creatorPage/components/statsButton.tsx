@@ -4,6 +4,8 @@ import type { RootState } from '../../../store//store'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrementSkill, incrementSkill } from '../../../store/creator/skillsSlice'
 import { setModificator } from '../../../store/creator/modificatorSlice'
+import plus from '../../../images/plus.svg'
+import minus from '../../../images/minus.svg'
 
 
 
@@ -45,8 +47,8 @@ export default function StatsButton({name ,raceStat,subRaceStat, onChange}:props
         <div className='statsButton'>
             <div className='statsButton__name'>{name}</div>
             <div className='statsButton__images'>
-                <img className='statsButton__img' src='../images/minus.svg' alt='minus' onClick={() => dispatch(decrementSkill(name)) }/>
-                <img className='statsButton__img' src='../images/plus.svg' alt='plus' onClick={() => dispatch(incrementSkill(name)) }/>
+                <img className='statsButton__img' src={minus} alt='minus' onClick={() => dispatch(decrementSkill(name)) }/>
+                <img className='statsButton__img' src={plus} alt='plus' onClick={() => dispatch(incrementSkill(name)) }/>
             </div>
             <div className='statsButton__counter'>{count[name] + raceStat + subRaceStat}</div>
             Модификатор 

@@ -9,15 +9,15 @@ import './App.css'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/dnd-caracter-creator/",
     element: <Home />,
   },
   {
-    path: "/creator",
+    path: "/dnd-caracter-creator/creator",
     element: <Creator />,
   },
   {
-    path: "/info",
+    path: "/dnd-caracter-creator/info",
     element: <Info />,
   },
 ]);
